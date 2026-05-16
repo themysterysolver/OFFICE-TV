@@ -1,0 +1,25 @@
+body,html,#root{
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  overflow: hidden;
+}
+.head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+}
+.TV{
+  height: 90%;
+  border: solid 1px black;
+  margin: 1%;
+}
+.DVD{
+  border: solid black 1px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
