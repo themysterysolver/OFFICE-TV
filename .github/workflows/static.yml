@@ -1,0 +1,36 @@
+name: Run deploy job
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: ./OFFICE-TV
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fregante/setup-git-user@v2
+      
+      - name: Authenticate Git
+        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      # 1. Setup Node & NPM Cache first
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      # 2. Install dependencies
+      - name: Install Node Modules
+        run: npm install
+
+      # 3. Run deploy task
+      - name: Deployment
+        run: npm run deploy
